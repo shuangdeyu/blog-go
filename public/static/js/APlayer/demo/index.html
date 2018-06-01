@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>APlayer Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        .container {
+            max-width: 32rem;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 50px;
+        }
+        h1 {
+            font-size: 54px;
+            color: #333;
+            margin: 30px 0 10px;
+        }
+        h2 {
+            font-size: 22px;
+            color: #555;
+        }
+        h3 {
+            font-size: 24px;
+            color: #555;
+        }
+        hr {
+            display: block;
+            width: 7rem;
+            height: 1px;
+            margin: 2.5rem 0;
+            background-color: #eee;
+            border: 0;
+        }
+        a {
+            color: #08c;
+            text-decoration: none;
+        }
+        p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Normal</h3>
+        <div id="player1" class="aplayer"></div>
+        <p></p>
+        
+        <button onclick="ap1.destroy()">ap.destroy()</button>
+        <h3>With playlist</h3>
+        <div id="player4" class="aplayer"></div>
+        <p></p>
+        <button onclick="ap4.setMusic(2)">ap.setMusic(2)</button>
+        <h3>With lyrics</h3>
+        <div id="player3" class="aplayer"></div>
+        <h3>With playlist and lyrics</h3>
+        <div id="player5" class="aplayer"></div>
+        <h3>Narrow</h3>
+        <div id="player2" class="aplayer"></div>
+    </div>
+    <script src="../dist/APlayer.min.js"></script>
+    <script src="demo.js"></script>
+       
+</body>
+</html>
