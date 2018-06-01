@@ -1,0 +1,100 @@
+{{ define "article/index.html" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="蒋小凡" />
+    <meta name="Copyright" content="蒋小凡" />
+    <meta name="description" content="蒋小凡的主页" />
+    <meta name="keywords" content="个人主页 蒋小凡" />
+    <title>Jiang XiaoFan</title>
+    <link rel="Shortcut Icon" href="/public/static/images/favicon.ico">
+    <link type="text/css" rel="styleSheet"  href="/public/static/css/style.css" />
+    <link type="text/css" rel="styleSheet"  href="/public/static/css/newstyle.css" />
+
+    <style type="text/css">
+        .thumbnail{
+            border: 1px solid #d9d9d9;
+            border-radius: 5px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+            margin-bottom: 25px;
+            width: 85%;
+        }
+        .thumbnail .caption{
+            text-align: center;
+            font-size: 1.1em;
+            color: #8b8b8b;
+            padding: 15px 0;
+        }
+        .thumbnail:hover{
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+<div class="con-main">
+    <!-- 导航 -->
+    <div class="con-left">
+        <div class="head">
+            <a href="/"><img src="/public/static/images/head.jpg" title="蒋小凡"></a>
+        </div>
+        <div class="name"><a href="/card"><strong>JIANG XIAOFAN</strong></a></div>
+        <div class="about">
+            <ul>
+                <li>
+                    <span><a href="javascript:" >作品集</a></span>
+                    <ul class="zuopin-type">
+                        <li><a href="/photo/shan">摄影</a></li>
+                        <li><a href="/photo/net">网站</a></li>
+                    </ul>
+                </li>
+                <li><a href="/weibo">微博</a></li>
+                <li><a href="/article">文章</a></li>
+                <li><a href="/card">关于我</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 内容 -->
+    <div class="con-right">
+        <div class="movie-card row">
+            {{ range $k,$v := .list }}
+            <div class="col-md-4 col-movie">
+                <div class="thumbnail">
+                    <a href="/detail?i={{ $v.Id }}">
+                        <img class="lazy" data-original="{{ $v.Cover }}" alt="...">
+                        <div class="caption">
+                            <span>{{ $v.Title }}</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+
+        <!-- 分页 -->
+        {{ .page | unescaped }}
+    </div>
+</div>
+
+<script src="/public/static/js/jquery-3.3.1.min.js"></script>
+<script src="/public/static/js/lazy-load.js"></script>
+<script>
+    $(document).ready(function(){
+        $("span a").click(function(){
+            $(this).parent().next().slideToggle();
+            $(this).parent().prevAll("ul").slideUp("slow");
+            $(this).parent().next().nextAll("ul").slideUp("slow");
+            return false;
+        });
+    });
+
+    $(function() {
+        $("img.lazy").lazyload({
+            effect : "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>
+{{ end }}

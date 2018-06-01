@@ -1,0 +1,90 @@
+{{ define "photo/xian.html" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="蒋小凡" />
+    <meta name="Copyright" content="蒋小凡" />
+    <meta name="description" content="蒋小凡的主页" />
+    <meta name="keywords" content="个人主页 蒋小凡" />
+    <title>Jiang XiaoFan</title>
+    <link rel="Shortcut Icon" href="/public/static/images/favicon.ico">
+    <link type="text/css" rel="styleSheet"  href="/public/static/css/style.css" />
+</head>
+<body>
+<div class="con-main">
+    <!-- 导航 -->
+    <div class="con-left">
+        <div class="head">
+            <a href="/"><img src="/public/static/images/head.jpg" title="蒋小凡"></a>
+        </div>
+        <div class="name"><a href="/card"><strong>JIANG XIAOFAN</strong></a></div>
+        <div class="about">
+            <ul>
+                <li>
+                    <span><a href="javascript:" >作品集</a></span>
+                    <ul class="zuopin-type" style="display:block">
+                        <li><a href="/photo/shan">摄影</a></li>
+                        <li><a href="/photo/net">网站</a></li>
+                    </ul>
+                </li>
+                <li><a href="/weibo">微博</a></li>
+                <li><a href="/article">文章</a></li>
+                <li><a href="/card">关于我</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 内容 -->
+    <div class="con-right">
+        <div class="con-nav">
+            <a href="/photo/shan"><span>山</span></a>
+            <a href="/photo/ren"><span>人</span></a>
+            <a href="/photo/xian"><span class="active">仙</span></a>
+            <a href="/photo/view"><span>赏</span></a>
+        </div>
+
+        <div id="imageContainer">
+        {{ range $k,$v := .imgList }}
+            <img src="{{ $v.PicUrl }}" title="点击切换">
+        {{ end }}
+        </div>
+        <div>
+            {{ .content | unescaped }}
+        </div>
+        <p style="margin-top:55px;"></p>
+    </div>
+</div>
+
+<script src="/public/static/js/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("span a").click(function(){
+            $(this).parent().next().slideToggle();
+            $(this).parent().prevAll("ul").slideUp("slow");
+            $(this).parent().next().nextAll("ul").slideUp("slow");
+            return false;
+        });
+    });
+
+    var imageObject = {
+        clickSwap : function(obj) {
+            obj.click(function() {
+                var activeImage = $(this).children('img.active');
+                activeImage.removeClass('active');
+                if (activeImage.next().length > 0) {
+                    activeImage.next().addClass('active');
+                } else {
+                    $(this).children('img:first-child').addClass('active');
+                }
+                return false;
+            });
+        }
+    };
+    $(function() {
+        imageObject.clickSwap($('#imageContainer'));
+    });
+</script>
+</body>
+</html>
+{{ end }}

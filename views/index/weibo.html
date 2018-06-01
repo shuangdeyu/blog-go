@@ -1,0 +1,69 @@
+{{ define "index/weibo.html" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="蒋小凡" />
+    <meta name="Copyright" content="蒋小凡" />
+    <meta name="description" content="蒋小凡的主页" />
+    <meta name="keywords" content="个人主页 蒋小凡" />
+    <title>Jiang XiaoFan</title>
+    <link rel="Shortcut Icon" href="/public/static/images/favicon.ico">
+    <link type="text/css" rel="styleSheet"  href="/public/static/css/style.css" />
+    <link type="text/css" rel="styleSheet"  href="/public/static/css/newstyle.css" />
+</head>
+<body>
+<div class="con-main">
+    <!-- 导航 -->
+    <div class="con-left">
+        <div class="head">
+            <a href="/"><img src="/public/static/images/head.jpg" title="蒋小凡"></a>
+        </div>
+        <div class="name"><a href="/card"><strong>JIANG XIAOFAN</strong></a></div>
+        <div class="about">
+            <ul>
+                <li>
+                    <span><a href="javascript:" >作品集</a></span>
+                    <ul class="zuopin-type">
+                        <li><a href="/photo/shan">摄影</a></li>
+                        <li><a href="/photo/net">网站</a></li>
+                    </ul>
+                </li>
+                <li><a href="/weibo">微博</a></li>
+                <li><a href="/article">文章</a></li>
+                <li><a href="/card">关于我</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 内容 -->
+    <div class="con-right con-article-img">
+        {{range $k,$v:=.list}}
+            <div style="font-size:15px;padding:35px 0 10px 0;color:#636363">
+                <p><strong>{{$v.Name}}</strong></p>
+            </div>
+            <div style="padding-bottom:25px;border-bottom:1px solid #ededed">
+                {{$v.Content | unescaped}}
+            </div>
+        {{end}}
+
+        <!-- 分页 -->
+         {{ .page | unescaped }}
+    </div>
+</div>
+
+<script src="/public/static/js/jquery-3.3.1.min.js"></script>
+<script>
+    // 下拉导航
+    $(document).ready(function(){
+        $("span a").click(function(){
+            $(this).parent().next().slideToggle();
+            $(this).parent().prevAll("ul").slideUp("slow");
+            $(this).parent().next().nextAll("ul").slideUp("slow");
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
+{{ end }}

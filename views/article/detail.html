@@ -1,0 +1,165 @@
+{{ define "article/detail.html" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="蒋小凡" />
+    <meta name="Copyright" content="蒋小凡" />
+    <meta name="description" content="蒋小凡的主页" />
+    <meta name="keywords" content="个人主页 蒋小凡" />
+    <title>Jiang XiaoFan</title>
+    <link rel="Shortcut Icon" href="/public/static/images/favicon.ico">
+    <link type="text/css" rel="styleSheet"  href="/public/static/css/style.css" />
+    {{/*<link type="text/css" rel="styleSheet"  href="/public/static/css/newstyle.css" />*/}}
+    <link type="text/css" rel="stylesheet" href="/public/static/editor.md/css/editormd.preview.css">
+
+    <style type="text/css">
+        #back-to-top {
+            position: fixed;
+            bottom: 50px;
+            right: 0px;
+        }
+        #back-to-top a span {
+            background: #9c9c9c;
+            border-radius: 6px;
+            display: block;
+            height: 30px;
+            width: 30px;
+            background: #9c9c9c url(/public/static/images/arrow-up.png) no-repeat center center;
+            background-size: 14px;
+            margin-bottom: 5px;
+            -moz-transition: background 0.3s;
+            -webkit-transition: background 0.3s;
+            -o-transition: background 0.3s;
+            transition: background 0.3s;
+        }
+    </style>
+</head>
+<body>
+<div class="con-main">
+    <!-- 导航 -->
+    <div class="con-left">
+        <div class="head">
+            <a href="/"><img src="/public/static/images/head.jpg" title="蒋小凡"></a>
+        </div>
+        <div class="name"><a href="/card"><strong>JIANG XIAOFAN</strong></a></div>
+        <div class="about">
+            <ul>
+                <li>
+                    <span><a href="javascript:" >作品集</a></span>
+                    <ul class="zuopin-type">
+                        <li><a href="/photo/shan">摄影</a></li>
+                        <li><a href="/photo/net">网站</a></li>
+                    </ul>
+                </li>
+                <li><a href="/weibo">微博</a></li>
+                <li><a href="/article">文章</a></li>
+                <li><a href="/card">关于我</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 内容 -->
+    <div class="con-right con-article-img">
+        <div style="font-size:25px;padding:35px 0 10px 0;color:#636363">
+            {{ .title }}
+        </div>
+        <div style="font-size:15px;padding:05px 0 10px 0;color:#636363">
+            {{ .time | dateFormat }}
+        </div>
+
+        {{ if eq .is_markdown "1" }}
+        <div id='schemeDetail'>
+            <textarea style='display:none;'>{{ .content | unescaped }}</textarea>
+        </div>
+        {{ else }}
+        <div style="padding-bottom:15px;">
+            {{ .content | unescaped }}
+        </div>
+        {{ end }}
+
+        <!-- 返回顶部 -->
+        <p id="back-to-top"><a href="#top"><span></span></a></p>
+
+        <div style="padding-bottom:55px;border-bottom:1px solid #ededed">
+        </div>
+
+        <!-- 评论 -->
+        <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+        <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+        <div id="comment"></div>
+        <script>
+            new Valine({
+                el: '#comment' ,
+                notify:false,
+                verify:true,
+                appId: 'XJKG1rh3bYXGPHnGggtibpne-gzGzoHsz',
+                appKey: 'wnc94gNwwR62fiYSRLFAqCzp',
+                placeholder: 'hi，留个脚印吧',
+                path:window.location.href,
+                avatar:'wavatar',
+                pageSize:15,
+            });
+        </script>
+        <!-- 评论 -->
+
+    </div>
+</div>
+
+<script src="/public/static/js/jquery-3.3.1.min.js"></script>
+<script src="/public/static/editor.md/editormd.js"></script>
+<script src="/public/static/editor.md/lib/marked.min.js"></script>
+<script src="/public/static/editor.md/lib/prettify.min.js"></script>
+<script src="/public/static/editor.md/lib/raphael.min.js"></script>
+<script src="/public/static/editor.md/lib/underscore.min.js"></script>
+<script src="/public/static/editor.md/lib/sequence-diagram.min.js"></script>
+<script src="/public/static/editor.md/lib/flowchart.min.js"></script>
+<script src="/public/static/editor.md/lib/jquery.flowchart.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("span a").click(function(){
+            $(this).parent().next().slideToggle();
+            $(this).parent().prevAll("ul").slideUp("slow");
+            $(this).parent().next().nextAll("ul").slideUp("slow");
+            return false;
+        });
+    });
+
+    $(document).ready(function() {
+        //首先将#back-to-top隐藏
+        $("#back-to-top").hide();
+        //当滚动条的位置处于距顶部100像素以下时，跳转链接出现，否则消失
+        $(function() {
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > 100) {
+                    $("#back-to-top").fadeIn(1500);
+                } else {
+                    $("#back-to-top").fadeOut(1500);
+                }
+            });
+            //当点击跳转链接后，回到页面顶部位置
+            $("#back-to-top").click(function() {
+                $('body,html').animate({
+                            scrollTop: 0
+                        },
+                        1000);
+                return false;
+            });
+        });
+    });
+
+    /* markdown解析 */
+    var testEditormdView;
+    testEditormdView = editormd.markdownToHTML("schemeDetail", {
+        htmlDecode      : "style,script,iframe",  // you can filter tags decode
+        tocm            : true,
+        emoji           : true,
+        taskList        : true,
+        tex             : true,  // 默认不解析
+        flowChart       : true,  // 默认不解析
+        sequenceDiagram : true   // 默认不解析
+    });
+</script>
+</body>
+</html>
+{{ end }}
