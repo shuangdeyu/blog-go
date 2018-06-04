@@ -1,6 +1,8 @@
 # jyj-go
 个人网站go语言实现（使用gin框架）
 
+访问：http://jyj.shuangdeyu.com/
+
 ## 初始化
 在 conf 文件夹下添加 conf.yaml 配置文件，根据实际情况添加如下配置
 
