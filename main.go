@@ -38,12 +38,12 @@ func main(){
 	defer db.Close()
 
 	// 初始化连接redis
-	c, err := model.InitRedis()
+	/*c, err := model.InitRedis()
 	if err != nil {
 		seelog.Error("redis连接出错", err)
 		return
 	}
-	defer c.Close()
+	defer c.Close()*/
 
 	gin.SetMode(gin.ReleaseMode) // 设置运行环境
 	r := gin.Default() // 启动gin
