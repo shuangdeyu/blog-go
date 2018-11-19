@@ -1,80 +1,92 @@
-{extend name="public/base" /}
-
-{block name="sidebar"}
-<div class="con-left">
-    <div class="head">
-        <a href="{:url('index/index')}"><img src="__IMG__/head.jpg" title="蒋小凡"></a>
+{{ define "photo/net.html" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="蒋小凡" />
+    <meta name="Copyright" content="蒋小凡" />
+    <meta name="description" content="蒋小凡的主页" />
+    <meta name="keywords" content="个人主页 蒋小凡" />
+    <title>Jiang XiaoFan</title>
+    <link rel="Shortcut Icon" href="/public/static/images/favicon.ico">
+    <link type="text/css" rel="styleSheet"  href="/public/static/css/style.css" />
+</head>
+<body>
+<div class="con-main">
+    <!-- 导航 -->
+    <div class="con-left">
+        <div class="head">
+            <a href="/"><img src="/public/static/images/head.jpg" title="蒋小凡"></a>
+        </div>
+        <div class="name"><a href="/card"><strong>JIANG XIAOFAN</strong></a></div>
+        <div class="about">
+            <ul>
+                <li>
+                    <span><a href="javascript:" >作品集</a></span>
+                    <ul class="zuopin-type" style="display:block">
+                        <li><a href="/photo/shan">摄影</a></li>
+                        <li><a href="/photo/net">网站</a></li>
+                    </ul>
+                </li>
+                <li><a href="/weibo">微博</a></li>
+                <li><a href="/article">文章</a></li>
+                <li><a href="/card">关于我</a></li>
+            </ul>
+        </div>
     </div>
-    <div class="name"><a href="{:url('index/card')}"><strong>JIANG XIAOFAN</strong></a></div>
-    <div class="about">
-        <ul>
-            <li>
-                <span><a href="javascript:" >作品集</a></span>
-                <ul class="zuopin-type" style="display:block">
-                    <li><a href="{:url('photo/shan')}">摄影</a></li>
-                    <li><a href="{:url('photo/net')}">网站</a></li>
-                </ul>
-            </li>
-            <li><a href="{:url('index/weibo')}">微博</a></li>
-            <li><a href="{:url('movie/index')}">文章</a></li>
-            <li><a href="{:url('index/card')}">关于我</a></li>
-        </ul>
+
+    <!-- 内容 -->
+    <div class="con-right">
+        <div class="net" id="net5">
+            <a href="https://github.com/shuangdeyu/blog-go" target="_blank">
+                <img src="/public/static/images/net/blog-go.png">
+                <div class="abs" id="blog-go">
+                    <h2>轻博客个人站-go</h2>
+                    <p>使用go，gin框架实现的个人网站</p>
+                </div>
+            </a>
+        </div>
+        <div class="net" id="net4">
+            <a href="http://tool.shuangdeyu.com/" target="_blank">
+                <img src="/public/static/images/net/tool.png">
+                <div class="abs" id="tool">
+                    <h2>小工具</h2>
+                    <p>实用的程序开发小工具集合</p>
+                </div>
+            </a>
+        </div>
+        <div class="net" id="net1">
+            <a href="http://shuangdeyu.oschina.io/" target="_blank">
+                <img src="/public/static/images/net/blog.png">
+                <div class="abs" id="blog">
+                    <h2>个人博客</h2>
+                    <p>装逼又好用的hexo静态博客</p>
+                    <p>http://shuangdeyu.oschina.io/</p>
+                </div>
+            </a>
+        </div>
+        <div class="net" id="net2">
+            <a href="https://github.com/shuangdeyu/chatfree" target="_blank">
+                <img src="/public/static/images/net/chatfree.png">
+                <div class="abs" id="chat">
+                    <h2>简易即时聊天室</h2>
+                    <p>基于workman的简易即时聊天室</p>
+                </div>
+            </a>
+        </div>
+        <div class="net" id="net3">
+            <a href="https://github.com/shuangdeyu/light-personal-blog" target="_blank">
+                <img src="/public/static/images/net/lightblog.png">
+                <div class="abs" id="light">
+                    <h2>极简类博客个人网站</h2>
+                    <p>用thinkphp5开发的禁欲系极简风格个人网站</p>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
-{/block}
 
-{block name="content"}
-<div class="con-right">
-    <div class="net" id="net5">
-        <a href="https://github.com/shuangdeyu/blog-go" target="_blank">
-            <img src="__IMG__/net/blog-go.png">
-            <div class="abs" id="blog-go">
-                <h2>轻博客个人站-go</h2>
-                <p>使用go，gin框架实现的个人网站</p>
-            </div>
-        </a>
-    </div>
-    <div class="net" id="net4">
-        <a href="http://tool.shuangdeyu.com/" target="_blank">
-            <img src="__IMG__/net/tool.png">
-            <div class="abs" id="tool">
-                <h2>小工具</h2>
-                <p>实用的程序开发小工具集合</p>
-            </div>
-        </a>
-    </div>
-    <div class="net" id="net1">
-        <a href="http://shuangdeyu.oschina.io/" target="_blank">
-            <img src="__IMG__/net/blog.png">
-            <div class="abs" id="blog">
-                <h2>个人博客</h2>
-                <p>装逼又好用的hexo静态博客</p>
-                <p>http://shuangdeyu.oschina.io/</p>
-            </div>
-        </a>
-    </div>
-    <div class="net" id="net2">
-        <a href="https://github.com/shuangdeyu/chatfree" target="_blank">
-            <img src="__IMG__/net/chatfree.png">
-            <div class="abs" id="chat">
-                <h2>简易即时聊天室</h2>
-                <p>基于workman的简易即时聊天室</p>
-            </div>
-        </a>
-    </div>
-    <div class="net" id="net3">
-        <a href="https://github.com/shuangdeyu/light-personal-blog" target="_blank">
-            <img src="__IMG__/net/lightblog.png">
-            <div class="abs" id="light">
-                <h2>极简类博客个人网站</h2>
-                <p>用thinkphp5开发的禁欲系极简风格个人网站</p>
-            </div>
-        </a>
-    </div>
-</div>
-{/block}
-
-{block name="js-code"}
+<script src="/public/static/js/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function(){
         $("span a").click(function(){
@@ -116,4 +128,6 @@
         $("#blog-go").fadeOut(300);
     });
 </script>
-{/block}
+</body>
+</html>
+{{ end }}
