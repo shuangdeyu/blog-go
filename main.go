@@ -13,6 +13,7 @@ import (
 func main(){
 	configPath := flag.String("c","conf/conf.yaml","config file path") // 系统配置文件
 	logPath := flag.String("l","conf/log.xml","log file path") // 日志配置文件
+	flag.Parse()
 
 	// 加载日志配置模板
 	logger, err := seelog.LoggerFromConfigAsFile(*logPath) // 用配置文件创建日志记录器
