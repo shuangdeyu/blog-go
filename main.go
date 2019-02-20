@@ -1,18 +1,18 @@
 package main
 
 import (
-	"github.com/cihub/seelog"
 	"flag"
-	"jyj-go/conf"
-	"jyj-go/model"
+	"github.com/cihub/seelog"
 	"github.com/gin-gonic/gin"
-	"jyj-go/controller"
 	"html/template"
+	"jyj-go/conf"
+	"jyj-go/controller"
+	"jyj-go/model"
 )
 
-func main(){
-	configPath := flag.String("c","conf/conf.yaml","config file path") // 系统配置文件
-	logPath := flag.String("l","conf/log.xml","log file path") // 日志配置文件
+func main() {
+	configPath := flag.String("c", "conf/conf.yaml", "config file path") // 系统配置文件
+	logPath := flag.String("l", "conf/log.xml", "log file path")         // 日志配置文件
 	flag.Parse()
 
 	// 加载日志配置模板
@@ -22,7 +22,7 @@ func main(){
 		return
 	}
 	seelog.ReplaceLogger(logger) // 替换日志记录器
-	defer seelog.Flush() // 刷新立即处理所有当前排队的消息和所有当前缓冲的消息
+	defer seelog.Flush()         // 刷新立即处理所有当前排队的消息和所有当前缓冲的消息
 
 	// 加载配置文件
 	if err := conf.LoadConfiguration(*configPath); err != nil {
@@ -47,20 +47,20 @@ func main(){
 	defer c.Close()*/
 
 	gin.SetMode(gin.ReleaseMode) // 设置运行环境
-	r := gin.Default() // 启动gin
+	r := gin.Default()           // 启动gin
 
 	// 定义模板相关设置
 	setTemplate(r)
 
 	// 设置静态文件目录
-	r.Static("/public/static","./public/static")
+	r.Static("/public/static", "./public/static")
 
 	// 路径错误视图
 	r.NoRoute()
 
 	// 主页
-	r.GET("/",controller.HomePage)
-	r.GET("/index",controller.HomePage)
+	r.GET("/", controller.HomePage)
+	r.GET("/index", controller.HomePage)
 
 	// 我
 	r.GET("/card", controller.CardPage)
@@ -71,11 +71,13 @@ func main(){
 
 	// 作品集
 	photo := r.Group("/photo")
-	photo.GET("/shan", controller.ShanPage)
-	photo.GET("/ren", controller.RenPage)
-	photo.GET("/xian", controller.XianPage)
-	photo.GET("/view", controller.ViewPage)
-	photo.GET("/net", controller.NetPage)
+	{
+		photo.GET("/shan", controller.ShanPage)
+		photo.GET("/ren", controller.RenPage)
+		photo.GET("/xian", controller.XianPage)
+		photo.GET("/view", controller.ViewPage)
+		photo.GET("/net", controller.NetPage)
+	}
 
 	// 文章
 	r.GET("article", controller.ArticlePage)
@@ -85,11 +87,11 @@ func main(){
 	r.Run(conf.GetConfiguration().Port)
 }
 
-func setTemplate(route *gin.Engine){
+func setTemplate(route *gin.Engine) {
 	// 设置自定义模板函数
 	funcmap := template.FuncMap{
 		"dateFormat": controller.DateFormat,
-		"unescaped": controller.Unescaped,
+		"unescaped":  controller.Unescaped,
 	}
 	route.SetFuncMap(funcmap)
 	// 设置视图目录格式
